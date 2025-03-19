@@ -1,23 +1,42 @@
-# Variables description
+# Objectifs pédagogiques
+Ce projet a pour objectif d’amener les étudiants à mettre en pratique les concepts
+fondamentaux de l’apprentissage supervisé, en appliquant différentes méthodologies
+sur un problème de classification. Ils devront :
 
-#: ID for each pokemon
+— Comprendre et appliquer un workflow rigoureux en machine learning.
 
-Name: Name of each pokemon
+— Comparer l’efficacité de plusieurs algorithmes de classification : kNN, arbres de
+décision et réseaux de neurones.
 
-Type 1: Each pokemon has a type, this determines weakness/resistance to attacks
+— Mettre en œuvre une validation croisée avec k-fold.
 
-Type 2: Some pokemon are dual type and have 2
+— Optimiser les hyperparamètres via une recherche par grille.
 
-Total: sum of all stats that come after this, a general guide to how strong a pokemon is
+— Évaluer les performances des modèles avec des métriques adaptées.
 
-HP: hit points, or health, defines how much damage a pokemon can withstand before fainting
+— Rédiger un rapport structuré et analytique des résultats obtenus.
 
-Attack: the base modifier for normal attacks (eg. Scratch, Punch)
 
-Defense: the base damage resistance against normal attacks
+# Description des variables
 
-SP Atk: special attack, the base modifier for special attacks (e.g. fire blast, bubble beam)
+#: l'ID de chaque Pokémon
 
-SP Def: the base damage resistance against special attacks
+Name: le nom de chaque Pokémon
 
-Speed: determines which pokemon attacks first each round
+Type 1: chaque Pokémon a un type, il détermine sa force/résistance aux attaques
+
+Type 2: Un Pokémon doté d'un double type est un Pokémon possédant deux types 
+
+Total: la somme de toutes les statistiques qui viennent après cette variable, un indicateur global de la force d'un Pokémon
+
+HP: déterminent le nombre de dégâts qu'un Pokémon peut recevoir avant le K.O
+
+Attack: détermine partiellement la quantité de dégâts qu'un Pokémon provoque lorsqu'il utilise une capacité physique
+
+Defense: détermine partiellement la quantité de dégâts qu'un Pokémon subit lorsqu'il reçoit une capacité physique
+
+SP Atk: détermine partiellement la quantité de dégâts qu'un Pokémon provoque lorsqu'il utilise une capacité de catégorie spéciale
+
+SP Def: détermine partiellement la quantité de dégâts qu'un Pokémon subit lorsqu'il reçoit une capacité de catégorie spéciale
+
+Speed: détermine quel Pokémon lance la première attaque au début d'un tour
