@@ -4,6 +4,8 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score
 from sklearn import tree
+from sklearn.model_selection import cross_val_score
+import pandas as pd
 
 from traitement_donnees import *
 
@@ -41,3 +43,6 @@ tree.plot_tree(clf,
 plt.show()
 
 print(f"Précision du modèle : {accuracy}")
+
+scores = cross_val_score(clf, X_test, y_test)
+print(f"Précision moyenne du modèle : {sum(scores) / len(scores)}")
