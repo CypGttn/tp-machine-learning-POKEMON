@@ -1,6 +1,7 @@
 from sklearn.neural_network import MLPClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
+from sklearn.model_selection import cross_val_score
 
 from traitement_donnees import *
 
@@ -23,3 +24,6 @@ accuracy = accuracy_score(y_test, y_pred)
 
 accuracy = clf.score(X_test, y_test)
 print(accuracy)
+
+scores = cross_val_score(clf, X_test, y_test)
+print(f"Précision moyenne du modèle : {sum(scores) / len(scores)}")
