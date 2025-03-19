@@ -1,3 +1,5 @@
+# Variables description
+
 #: ID for each pokemon
 
 Name: Name of each pokemon
