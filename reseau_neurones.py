@@ -1,8 +1,8 @@
 from sklearn.neural_network import MLPClassifier
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score
-from sklearn.model_selection import cross_val_score
-
+import numpy as np
+from sklearn.model_selection import KFold
 from traitement_donnees import *
 
 #print(df_clean.head())
@@ -12,18 +12,24 @@ df = df_clean.dropna()
 X = df.drop(columns=['Legendary'])  # Features
 y = df['Legendary']  # Cible
 
-#print(f'X:\n{X.head()}')
-print(f'y:\n{y.head()}')
+# Convertir y de booléen à entier (0 pour False, 1 pour True)
+y = y.astype(int)
 
-# Diviser en ensemble d'entraînement et de test
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+kf = KFold(n_splits=5, shuffle=True, random_state=42)
+scores = []
 
-clf = MLPClassifier(random_state=1, max_iter=300).fit(X_train, y_train)
-y_pred = clf.predict(X_test)
-accuracy = accuracy_score(y_test, y_pred)
+for train_index, test_index in kf.split(X):
+    X_train, X_test = X.iloc[train_index], X.iloc[test_index]
+    y_train, y_test = y.iloc[train_index], y.iloc[test_index]
 
-accuracy = clf.score(X_test, y_test)
-print(accuracy)
+    # Créer et entraîner le modèle
+    model = MLPClassifier(hidden_layer_sizes=(50, 30), max_iter=500, random_state=42)
+    model.fit(X_train, y_train.values.ravel())  # .ravel() pour convertir y en 1D
 
-scores = cross_val_score(clf, X_test, y_test)
-print(f"Précision moyenne du modèle : {sum(scores) / len(scores)}")
+    # Prédire et évaluer
+    y_pred = model.predict(X_test)
+    score = accuracy_score(y_test, y_pred)
+    scores.append(score)
+
+print(f'Scores pour chaque fold: {scores}')
+print(f'Moyenne des scores: {np.mean(scores):.4f}')

@@ -6,6 +6,8 @@ from sklearn.metrics import accuracy_score
 from sklearn import tree
 from sklearn.model_selection import cross_val_score
 import pandas as pd
+import numpy as np
+from sklearn.model_selection import KFold
 
 from traitement_donnees import *
 
@@ -16,24 +18,30 @@ df = df_clean.dropna()
 X = df.drop(columns=['Legendary'])  # Features
 y = df['Legendary']  # Cible
 
-#print(f'X:\n{X.head()}')
-print(f'y:\n{y.head()}')
+# Convertir y de booléen à entier (0 pour False, 1 pour True)
+y = y.astype(int)
 
-# Diviser en ensemble d'entraînement et de test
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+kf = KFold(n_splits=5, shuffle=True, random_state=42)
+scores = []
 
-################
-# Modélisation #
-################
+for train_index, test_index in kf.split(X):
+    X_train, X_test = X.iloc[train_index], X.iloc[test_index]
+    y_train, y_test = y.iloc[train_index], y.iloc[test_index]
 
-# Créer et entraîner le modèle DecisionTreeClassifier
-clf = DecisionTreeClassifier(criterion='gini', max_depth=4)
-clf.fit(X_train, y_train)
+    # Créer et entraîner le modèle
+    model = DecisionTreeClassifier(criterion='gini', max_depth=4)
+    model.fit(X_train, y_train)
 
-# Prédire et évaluer le modèle
-y_pred = clf.predict(X_test)
-accuracy = accuracy_score(y_test, y_pred)
+    # Prédire et évaluer
+    y_pred = model.predict(X_test)
+    score = accuracy_score(y_test, y_pred)
+    scores.append(score)
 
+print(f'Scores pour chaque fold: {scores}')
+print(f'Moyenne des scores: {np.mean(scores):.4f}')
+
+
+"""
 plt.figure(figsize=(16, 8))
 tree.plot_tree(clf, 
           feature_names=X.columns,  # Affiche les noms des variables
@@ -41,8 +49,4 @@ tree.plot_tree(clf,
           rounded=True,  # Coins arrondis pour une meilleure lisibilité
           fontsize=10)  # Ajuster la taille du texte si nécessaire
 plt.show()
-
-print(f"Précision du modèle : {accuracy}")
-
-scores = cross_val_score(clf, X_test, y_test)
-print(f"Précision moyenne du modèle : {sum(scores) / len(scores)}")
+"""

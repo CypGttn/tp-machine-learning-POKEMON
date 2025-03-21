@@ -3,6 +3,8 @@ import pandas as pd
 from scipy.spatial.distance import cdist
 from sklearn.model_selection import train_test_split
 from collections import Counter
+from sklearn.model_selection import KFold
+from sklearn.metrics import accuracy_score
 
 class KNN:
     def __init__(self, distance: str = 'euclidean', K: int = 3):
@@ -40,26 +42,33 @@ y = df['Legendary']  # Cible
 # Encodage des variables catégoriques
 X = pd.get_dummies(X)
 
-# Séparation des données en train et test
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+# Convertir y de booléen à entier (0 pour False, 1 pour True)
+X = X.astype(int)
+# Convertir y de booléen à entier (0 pour False, 1 pour True)
+y = y.astype(int)
 
-# Conversion en numpy array
-X_train = X_train.values.astype(float)
-X_test = X_test.values.astype(float)
-y_train = y_train.values.astype(int)  # Assurez-vous que y est de type int
-y_test = y_test.values.astype(int)
+kf = KFold(n_splits=5, shuffle=True, random_state=42)
+scores = []
 
-# Création et entraînement du modèle
-knn = KNN(distance='euclidean', K=3)
-knn.train(X_train, y_train)
+for train_index, test_index in kf.split(X):
+    X_train, X_test = X.iloc[train_index], X.iloc[test_index]
+    y_train, y_test = y.iloc[train_index], y.iloc[test_index]
 
-# Prédiction
-y_pred = knn.predict(X_test)
+    # Convertir les DataFrames en numpy arrays
+    X_train = X_train.to_numpy()
+    X_test = X_test.to_numpy()
+    y_train = y_train.to_numpy()
+    y_test = y_test.to_numpy()
 
-# Calcul de la précision
-accuracy = np.mean(y_pred == y_test)
-print(f'Accuracy: {accuracy}')
+    # Création et entraînement du modèle
+    knn = KNN(distance='euclidean', K=3)
+    knn.train(X_train, y_train)
 
-# Affichage des prédictions et valeurs réelles
-print("Predictions:", y_pred)
-print("Réelles:", y_test)
+    # Prédire et évaluer
+    y_pred = knn.predict(X_test)
+    score = accuracy_score(y_test, y_pred)
+    scores.append(score)
+
+print(f'Scores pour chaque fold: {scores}')
+print(f'Moyenne des scores: {np.mean(scores):.4f}')
+
