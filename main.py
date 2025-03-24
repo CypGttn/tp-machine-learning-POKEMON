@@ -55,12 +55,15 @@ def algo_kfolding(model) :
         scores.append(score)
 
     print(f'type : {type(model)}')
-    print(f'Scores pour chaque fold: {scores}')
+    #print(f'Scores pour chaque fold: {scores}')
     print(f'Moyenne des scores: {np.mean(scores):.4f}')
+    print(f'\n')
 
 # Choix du modèle
-model = DecisionTreeClassifier(criterion='gini', max_depth=4, random_state=42)
-#model = MLPClassifier(hidden_layer_sizes=(50, 30), max_iter=500, random_state=42)
-#model = KNN(distance='euclidean', K=3)
+model_arbre_decision = DecisionTreeClassifier(criterion='gini', max_depth=4, random_state=42)
+model_reseau_neurones = MLPClassifier(hidden_layer_sizes=(50, 30), max_iter=500, random_state=42)
+model_knn = KNN(distance='euclidean', K=3)
 
-algo_kfolding(model)
+algo_kfolding(model_arbre_decision)
+algo_kfolding(model_reseau_neurones)
+algo_kfolding(model_knn)
