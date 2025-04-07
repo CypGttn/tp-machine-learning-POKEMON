@@ -2,7 +2,7 @@
 Ligne 14, modifier ```csv_name = 'Pokemon2.csv'``` par 'Pokemon.csv', 'Pokemon2.csv' ou 'Pokemon_data.csv' pour changer de dataset. Pokemon.csv est le dataset de base, Pokemon2.csv contient plus de lignes et Pokemon_data.csv contient plus de lignes et de variables.
 
 
-Ligne 176, modifier ```test(type_model="arbre_decision",opti=False, norm=False)``` :
+Ligne 176, modifier ```test(type_model="arbre_decision", opti=False, norm=False)``` :
 
 -type_model (le type de modèle) : ```"arbre_decision"```, ```"reseau_neurones"``` ou ```"knn"```
 
