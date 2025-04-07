@@ -1,7 +1,13 @@
 # Utilisation du programme Python 
-Ligne 14, ```csv_name = 'Pokemon2.csv'```
-quel dataset utiliser ('Pokemon.csv', 'Pokemon2.csv', 'Pokemo_data.csv')
-Ligne 176, ```test("arbre_decision",opti=False, norm=False)```
+Ligne 14, modifier ```csv_name = 'Pokemon2.csv'``` par 'Pokemon.csv', 'Pokemon2.csv' ou 'Pokemon_data.csv' pour changer de dataset. Pokemon.csv est le dataset de base, Pokemon2.csv contient plus de lignes et Pokemon_data.csv contient plus de lignes et de variables.
+
+
+Ligne 176, modifier ```test(type_model="arbre_decision",opti=False, norm=False)``` :
+
+-type_model (le type de modèle) : ```"arbre_decision"```, ```"reseau_neurones"``` ou ```"knn"```
+-opti (si on effectue une recherche des meilleurs paramètres) : ```True``` ou ```False```
+-norm (si on entraine le modèle sur des données normalisées) : ```True``` ou ```False```
+
 
 # Objectifs pédagogiques
 Ce projet a pour objectif d’amener les étudiants à mettre en pratique les concepts
