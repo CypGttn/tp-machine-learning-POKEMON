@@ -10,7 +10,7 @@ from sklearn.metrics import make_scorer, accuracy_score, precision_score, recall
 from kNN import KNN
 from normalisation import *
 
-#csv_name possibles (classé du moins complet au plus complet) : 'Pokemon.csv', 'Pokemon2.csv', 'Pokemo_data.csv'
+#csv_name possibles (classé du moins complet au plus complet) : 'Pokemon.csv', 'Pokemon2.csv', 'Pokemon_data.csv'
 csv_name = 'Pokemon_data.csv'
 df = pd.read_csv(csv_name)
 
@@ -173,6 +173,6 @@ def test(type_model = "arbre_decision", opti = True, norm = False):
         else:
             algo_kfolding(X, y, model_knn)
        
-test("arbre_decision",opti=False, norm=False)
+test(type_model="arbre_decision",opti=False, norm=False)
 
         
