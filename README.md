@@ -5,7 +5,9 @@ Ligne 14, modifier ```csv_name = 'Pokemon2.csv'``` par 'Pokemon.csv', 'Pokemon2.
 Ligne 176, modifier ```test(type_model="arbre_decision",opti=False, norm=False)``` :
 
 -type_model (le type de modèle) : ```"arbre_decision"```, ```"reseau_neurones"``` ou ```"knn"```
+
 -opti (si on effectue une recherche des meilleurs paramètres) : ```True``` ou ```False```
+
 -norm (si on entraine le modèle sur des données normalisées) : ```True``` ou ```False```
 
 
