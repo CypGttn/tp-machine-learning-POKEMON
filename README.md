@@ -1,3 +1,8 @@
+# Utilisation du programme Python 
+Ligne 14, ```csv_name = 'Pokemon2.csv'```
+quel dataset utiliser ('Pokemon.csv', 'Pokemon2.csv', 'Pokemo_data.csv')
+Ligne 176, ```test("arbre_decision",opti=False, norm=False)```
+
 # Objectifs pédagogiques
 Ce projet a pour objectif d’amener les étudiants à mettre en pratique les concepts
 fondamentaux de l’apprentissage supervisé, en appliquant différentes méthodologies

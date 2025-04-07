@@ -10,6 +10,7 @@ from sklearn.metrics import make_scorer, accuracy_score, precision_score, recall
 from kNN import KNN
 from normalisation import *
 
+#csv_name possibles (classé du moins complet au plus complet) : 'Pokemon.csv', 'Pokemon2.csv', 'Pokemo_data.csv'
 csv_name = 'Pokemon_data.csv'
 df = pd.read_csv(csv_name)
 
@@ -115,7 +116,7 @@ def algo_kfold_and_gridsearch(X, y, type_model : str = "arbre_decision", param_g
     print("Meilleurs paramètres :", grid_search.best_params_)
     print("Meilleure précision moyenne :", grid_search.best_score_)
 
-algo_kfold_and_gridsearch(X, y, "arbre_decision", param_grid_arbre_decision)
+#algo_kfold_and_gridsearch(X, y, "arbre_decision", param_grid_arbre_decision)
 """Meilleurs paramètres : {'criterion': 'entropy', 'max_depth': None, 'min_samples_leaf': 1, 'min_samples_split': 5}
 Meilleure précision moyenne : 0.9805078386870774"""
 #algo_kfold_and_gridsearch(X, y, "reseau_neurones", param_grid_reseau_neurones)
@@ -139,6 +140,7 @@ y_norm = y_norm.astype(int)
 #algo_kfold_and_gridsearch(X_norm, y_norm, "reseau_neurones", param_grid_reseau_neurones)
 
 def test(type_model = "arbre_decision", opti = True, norm = False):
+    print(f"Modèle choisi : {type_model}\nopti : {opti}\ndonnées normalisé : {norm}")
     # Initialisation du modèle
     grideable = False
     if type_model == "arbre_decision":
@@ -165,7 +167,12 @@ def test(type_model = "arbre_decision", opti = True, norm = False):
                 algo_kfolding(X_norm, y_norm, model)
             else:
                 algo_kfolding(X, y, model)
-
-#test("arbre_decision",True,False)
+    else:
+        if norm:
+            algo_kfolding(X_norm, y_norm, model_knn)
+        else:
+            algo_kfolding(X, y, model_knn)
+       
+test("arbre_decision",opti=False, norm=False)
 
         
